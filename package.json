@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "prepare": "husky install",
-    "migrate": "npx tsx scripts/migrate-users.ts"
+    "migrate": "npx tsx scripts/developerScript.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

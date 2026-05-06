@@ -7,8 +7,6 @@ import { ONgoingSection } from './_components/ONgoingSection'
 
 export const metadata: Metadata = {
   title: 'Home | JNUITS',
-  description:
-    'Jagannath University IT Society - Empowering the next generation of tech leaders.',
 }
 
 export default function Home() {

@@ -78,7 +78,7 @@ export default async function ProfileContent() {
           createdAt: user.createdAt,
         }}
       />
-      {user.membershipId && (
+      {user.membershipId && user.image && (
         <IdCardDownload
           name={user.name ?? ''}
           membershipId={user.membershipId ?? ''}

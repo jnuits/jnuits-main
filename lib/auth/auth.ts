@@ -137,15 +137,15 @@ export const auth = betterAuth({
         subject: 'Email Verification - Verify Your Account',
         html: `
           <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 500px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff;">
-            <h2 style="color: #4F46E5; text-align: center;">Verify Your Membership</h2>
+            <h2 style="color: #4F46E5; text-align: center;">Verify Your Email</h2>
             <p>Hi <strong>${user.name}</strong>,</p>
-            <p>Welcome to our University Club! To complete your registration and ensure security, please verify your email address by clicking the button below:</p>
+            <p>Welcome to our JnU IT Society! To complete your registration and ensure security, please verify your email address by clicking the button below:</p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${url}" style="background-color: #4F46E5; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">Verify Email Address</a>
             </div>
             <p style="font-size: 13px; color: #666; line-height: 1.5;">This link will expire soon. If you didn't request this, please ignore this email.</p>
             <hr style="border: none; border-top: 1px solid #f0f0f0; margin: 20px 0;">
-            <p style="font-size: 11px; color: #999; text-align: center;">© 2026 University Club Team</p>
+            <p style="font-size: 11px; color: #999; text-align: center;">© 2026 JnU IT Society Team</p>
           </div>
         `,
       }

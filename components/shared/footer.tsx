@@ -28,12 +28,6 @@ const Footer = () => {
               <Link href="#" className="transition-colors hover:text-white">
                 <Instagram size={20} />
               </Link>
-              {/* <Link href="#" className="transition-colors hover:text-white">
-                <Twitter size={20} />
-              </Link>
-              <Link href="#" className="transition-colors hover:text-white">
-                <Github size={20} />
-              </Link> */}
             </div>
           </div>
 

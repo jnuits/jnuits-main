@@ -1,11 +1,12 @@
 'use client'
 
 import { useMemo, useSyncExternalStore } from 'react'
-import { ArrowRight, CalendarDays, Star, Ticket, Users } from 'lucide-react'
+
 import { CldImage } from 'next-cloudinary'
 
+import { CalendarDays, Star, Ticket, Users } from 'lucide-react'
+
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -13,6 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+
+import RegisterButton from '../events/_components/RegisterButton'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -28,7 +31,8 @@ export interface EventProps {
   image: string
   deadline: Date | string
   isFeatured: boolean
-  totalApplicants: number
+  isPublic: boolean
+  TotalApplicants: number
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -60,9 +64,9 @@ function calcDaysLeft(date: Date | null): number {
 
 function useIsClient(): boolean {
   return useSyncExternalStore(
-    () => () => {},   // subscribe — no-op
-    () => true,       // client snapshot
-    () => false       // server snapshot
+    () => () => {}, // subscribe — no-op
+    () => true, // client snapshot
+    () => false // server snapshot
   )
 }
 
@@ -71,7 +75,10 @@ function useDaysLeft(deadline: Date | string) {
 
   const deadlineDate = useMemo(() => parseDeadline(deadline), [deadline])
   const daysLeft = useMemo(() => calcDaysLeft(deadlineDate), [deadlineDate])
-  const formattedDate = useMemo(() => formatDeadline(deadlineDate), [deadlineDate])
+  const formattedDate = useMemo(
+    () => formatDeadline(deadlineDate),
+    [deadlineDate]
+  )
 
   return { isClient, daysLeft, formattedDate }
 }
@@ -84,25 +91,24 @@ interface OngoingEventCardProps {
 
 export function OngoingEventCard({ event }: OngoingEventCardProps) {
   const { isClient, daysLeft, formattedDate } = useDaysLeft(event.deadline)
-
-  const isUrgent = isClient && daysLeft > 0 && daysLeft <= URGENCY_THRESHOLD_DAYS
+  const isUrgent =
+    isClient && daysLeft > 0 && daysLeft <= URGENCY_THRESHOLD_DAYS
 
   return (
-    <Card className="group border-border dark:hover:shadow-primary/5 flex w-full max-w-lg flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:shadow-xl pt-0">
-
+    <Card className="group border-border dark:hover:shadow-primary/5 flex w-full h-full flex-col overflow-hidden rounded-xl border pt-0 transition-all duration-300 hover:shadow-xl">
       {/* Image */}
       <div className="relative aspect-video w-full overflow-hidden">
         <CldImage
-  src={event.image}
-  alt={event.title}
-  fill
-  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
-  crop="fill"
-  gravity="auto"
-  format="auto"
-  quality="auto"
-  className="object-cover transition-transform duration-500 group-hover:scale-105"
-/>
+          src={event.image}
+          alt={event.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
+          crop="fill"
+          gravity="auto"
+          format="auto"
+          quality="auto"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {event.isFeatured && (
             <Badge className="border-none bg-amber-500 font-medium text-white shadow-sm backdrop-blur-md hover:bg-amber-600">
@@ -144,14 +150,18 @@ export function OngoingEventCard({ event }: OngoingEventCardProps) {
             <div className="flex items-center gap-2">
               <Users className="text-primary h-4 w-4" />
               <span>
-                <span className="text-foreground">{event.totalApplicants}+</span>{' '}
+                <span className="text-foreground">
+                  {event.TotalApplicants}+
+                </span>{' '}
                 Applied
               </span>
             </div>
             <div className="flex items-center gap-2">
               <Ticket className="text-primary h-4 w-4" />
               {event.isPaid ? (
-                <span className="text-foreground font-semibold">৳{event.fee}</span>
+                <span className="text-foreground font-semibold">
+                  ৳{event.fee}
+                </span>
               ) : (
                 <span className="font-semibold text-emerald-500 dark:text-emerald-400">
                   Free
@@ -164,12 +174,13 @@ export function OngoingEventCard({ event }: OngoingEventCardProps) {
 
       {/* CTA */}
       <CardFooter className="p-5 pt-0">
-        <Button className="group/btn w-full font-semibold">
+        {/* <Button className="group/btn w-full font-semibold">
           Register Now
           <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-        </Button>
-      </CardFooter>
+        </Button> */}
 
+        <RegisterButton event={event} />
+      </CardFooter>
     </Card>
   )
 }
