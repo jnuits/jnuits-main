@@ -118,7 +118,7 @@ export async function processAvatarUpload(formData: FormData) {
     const userId = formData.get('userId') as string
 
     if (!file || !userId) {
-      throw new Error('File ba User ID missing!')
+      throw new Error('File or User ID missing!')
     }
 
     // 1. Check korbe URL asoley ache naki (Database theke)
@@ -161,7 +161,7 @@ export async function processAvatarUpload(formData: FormData) {
     return { success: true, newImageUrl }
   } catch (error) {
     console.error('Upload process error:', error)
-    return { success: false, error: 'Profile picture update kora jayni' }
+    return { success: false, error: 'Unable to update profile picture.' }
   }
 }
 
