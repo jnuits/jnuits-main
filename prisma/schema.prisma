@@ -349,3 +349,9 @@ model Certificate {
 
   @@map("certificates")
 }
+
+model Myuser {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String
+}
